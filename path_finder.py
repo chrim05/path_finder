@@ -193,11 +193,13 @@ def print_solutions(paths):
     new_map[pos[1]][pos[0]] = 'A'
 
     # for direction instruction in path (go_up, go_down, ...)
-    for direction in path:
+    for j, direction in enumerate(path):
       # updating the pos with the instruction
       pos = sum_positions(pos, name_direction2direction_changer[direction])
-      # drawing the direction instruction into the clone map
-      new_map[pos[1]][pos[0]] = name_direction2direction_symbol[direction]
+
+      # drawing the direction instruction into the cloned map
+      # when possible inserts the next instead, for a better visualization
+      new_map[pos[1]][pos[0]] = name_direction2direction_symbol[path[j + 1] if j + 1 < len(path) else direction]
     
     # drawing 'B' in the target point
     new_map[pos[1]][pos[0]] = 'B'
@@ -223,11 +225,11 @@ if __name__ == '__main__':
   path_finder = PathFinder(
     [
       # A
+      [' ', '#', ' ', '#', '#'],
       [' ', ' ', ' ', ' ', '#'],
-      [' ', ' ', ' ', ' ', '#'],
-      [' ', '#', ' ', ' ', ' '],
-      [' ', '#', ' ', '#', ' '],
-      [' ', ' ', ' ', ' ', ' '], # B
+      [' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', '#', ' '],
+      [' ', '#', ' ', ' ', ' '], # B
     ],      # the map
 
     (0, 0), # the starting point

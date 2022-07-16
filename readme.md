@@ -39,3 +39,8 @@ python3.10 path_finder.py
 
 # requirements
 nothing just python 3.10
+
+# examples
+![example1](imgs/example1.png)
+![example2](imgs/example2.png)
+![example3](imgs/example3.png)
