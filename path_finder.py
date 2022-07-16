@@ -177,6 +177,35 @@ def print_map(m):
   print_edges()
   print()
 
+def print_solutions(paths):
+  '''
+  prints multiple times the same map with the drew path
+  '''
+  # printing all solution maps + whether they are one of faster or not
+  for i, path in enumerate(paths):
+    # cloning the map to replace only the empty slots with direction instructions without getting side effects on the original map (path_finder.map)
+    new_map = deepcopy(path_finder.map)
+    # pos = starting pos
+    pos = path_finder.a
+    
+    # indexing a map is [y][x] (because the map is a List[List[str]] which contains rows (List[str]) which contain columns)
+    # drawing 'A' in the starting point
+    new_map[pos[1]][pos[0]] = 'A'
+
+    # for direction instruction in path (go_up, go_down, ...)
+    for direction in path:
+      # updating the pos with the instruction
+      pos = sum_positions(pos, name_direction2direction_changer[direction])
+      # drawing the direction instruction into the clone map
+      new_map[pos[1]][pos[0]] = name_direction2direction_symbol[direction]
+    
+    # drawing 'B' in the target point
+    new_map[pos[1]][pos[0]] = 'B'
+    
+    # printing the map and the solution number
+    print(f'SOLUTION{i}', '(one of faster)' if path in faster_paths else '')
+    print_map(new_map)
+
 #
 # Simple test for the library
 #
@@ -219,27 +248,4 @@ if __name__ == '__main__':
   # getting a list containing refs to faster paths
   faster_paths = get_fastest_paths(valid_paths)
 
-  # printing all solution maps + whether they are one of faster or not
-  for i, path in enumerate(valid_paths):
-    # cloning the map to replace only the empty slots with direction instructions without getting side effects on the original map (path_finder.map)
-    new_map = deepcopy(path_finder.map)
-    # pos = starting pos
-    pos = path_finder.a
-    
-    # indexing a map is [y][x] (because the map is a List[List[str]] which contains rows (List[str]) which contain columns)
-    # drawing 'A' in the starting point
-    new_map[pos[1]][pos[0]] = 'A'
-
-    # for direction instruction in path (go_up, go_down, ...)
-    for direction in path:
-      # updating the pos with the instruction
-      pos = sum_positions(pos, name_direction2direction_changer[direction])
-      # drawing the direction instruction into the clone map
-      new_map[pos[1]][pos[0]] = name_direction2direction_symbol[direction]
-    
-    # drawing 'B' in the target point
-    new_map[pos[1]][pos[0]] = 'B'
-    
-    # printing the map and the solution number
-    print(f'SOLUTION{i}', '(one of faster)' if path in faster_paths else '')
-    print_map(new_map)
+  print_solutions(valid_paths)
