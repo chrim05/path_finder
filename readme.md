@@ -1,11 +1,13 @@
 # how to use the lib
-* open terminal: ```bash
+* open terminal:
+```bash
 git clone https://github.com/christallo/path_finder
 cd path_finder
 code .
 ```
 
-* create a `main.py`: ```python
+* create a `main.py`:
+```python
 # start by creating a path finder instance containing the map, the starting point and the target point
 path_finder = PathFinder(
   [
@@ -28,7 +30,8 @@ faster_paths_refs = get_fastest_paths(paths)
 NOTE: check the file at `if __name__ == '__main__'` to see a complete example
 
 # how to run the test(s)
-* open terminal ```bash
+* open terminal:
+```bash
 git clone https://github.com/christallo/path_finder
 cd path_finder
 python3.10 path_finder.py
